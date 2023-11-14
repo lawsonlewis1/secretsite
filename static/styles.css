@@ -1,0 +1,71 @@
+body {
+    background-color: #000000e8;
+}
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+img {
+    width: 150px;
+    animation-name: pulse;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+
+}
+button {
+    border: none;
+    background: none;
+}
+#viddiv {
+    display: none;
+    margin-top: -100vh;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+#viddiv div {
+    height: 100px;
+}
+#riddlediv {
+    color: ghostwhite;
+    opacity: 0%;
+    display: none;
+    margin-top: -100vh;
+    flex-direction: column;
+    flex-wrap: wrap;
+    animation-name: fade;
+    animation-duration: 6s;
+    animation-delay: 3s;
+    animation-fill-mode: forwards;
+    font-family: system-ui;
+}
+video {
+    width: 300px;
+    animation-name: zoom;
+    animation-duration: 3s;
+}
+input {
+    width: 1em;
+    text-align: center;
+    padding: 6px;
+    display: inline;
+    margin: 1em 10px;
+    color: white;
+    background: none;
+    border-radius: 4px;
+    border: 1px solid ghostwhite;
+}
+@keyframes zoom {
+    from {width: 3000px; filter: blur(8px)}
+    to {width: 300px; filter: blur(0px)}
+}
+@keyframes pulse {
+    from {transform: scale(0.95)}
+    to {transform: scale(1.05)}
+}
+@keyframes fade {
+    from {opacity: 0%}
+    to { opacity: 100%}
+}

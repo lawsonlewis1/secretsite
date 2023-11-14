@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Secret Site</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+	<div>
+		<button id='butt'>
+			<img id='btn' src="{{ url_for('static', filename='button.png') }}" alt="Secret Button">
+		</button>
+	</div>
+	<div id='viddiv'>
+		<video src="{{ url_for('static', filename='vid.mp4') }}" muted autoplay loop></video>
+		<div>
+			<input id='in1' type="number">
+			<input id='in2' type="number" disabled>
+			<input id='in3' type="number" disabled>
+			<input id='in4' type="number" disabled>
+		</div>
+	</div>
+	<div id="riddlediv">
+		riddler???
+	</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+	integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+	crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+	window.oncontextmenu = function (event) {
+		event.preventDefault();
+		event.stopPropagation();
+		return false;
+	};
+	const viddiv = document.getElementById('viddiv')
+	const riddlediv = document.getElementById('riddlediv')
+	const btn = document.getElementById('btn')
+	const in1 = document.getElementById('in1')
+	const in2 = document.getElementById('in2')
+	const in3 = document.getElementById('in3')
+	const in4 = document.getElementById('in4')
+	in1.addEventListener('input', () => {
+		in1.disabled = true;
+		in2.disabled = false;
+		in2.focus();
+	})
+	in2.addEventListener('input', () => {
+		in2.disabled = true;
+		in3.disabled = false;
+		in3.focus();
+	})
+	in3.addEventListener('input', () => {
+		in3.disabled = true;
+		in4.disabled = false;
+		in4.focus();
+	})
+	in4.addEventListener('input', () => {
+		in4.disabled = true;
+		var answer = in1.value + in2.value + in3.value + in4.value;
+		console.log(answer)
+		if (answer == '1993') {
+			console.log('correct answer')
+			riddlediv.style.display = "flex";
+			viddiv.style.display = "none";
+		} else {
+
+			in1.value = '';
+			in2.value = '';
+			in3.value = '';
+			in4.value = '';
+			in1.disabled = false;
+		}
+
+	})
+	var other_person_pressing = 0
+	var pressing = 0
+	var socket = io();
+	var butt = document.getElementById('butt')
+	butt.addEventListener('touchstart', () => {
+		pressing = 1
+		socket.emit('press', {pressed: 1})
+		if (pressing && other_person_pressing) {
+			console.log('both pressing')
+		} else {
+			console.log('you are pressing')
+			btn.style.display = 'none'
+			viddiv.style.display = 'flex';
+		}
+	})
+	butt.addEventListener('touchend', () => {
+		pressing = 0
+		socket.emit('press', {pressed: 0})
+		console.log('you stopped pressing')
+	})
+	socket.on('press', (data) => {
+		other_person_pressing = data['pressed']
+		if (pressing && other_person_pressing) {
+			console.log('both pressing')
+		} else if (other_person_pressing) {
+			console.log('other person is pressing')
+		} else {
+			console.log('other person stopped pressing')
+		}
+	})
+</script>
+
+</html>
