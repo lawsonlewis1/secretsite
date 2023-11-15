@@ -17,14 +17,14 @@
 	<div id='viddiv'>
 		<video src="{{ url_for('static', filename='vid.mp4') }}" muted autoplay loop></video>
 		<div>
-			<input id='in1' type="number">
-			<input id='in2' type="number" disabled>
-			<input id='in3' type="number" disabled>
-			<input id='in4' type="number" disabled>
+			<input id='in1' type="text">
+			<input id='in2' type="text" disabled>
+			<input id='in3' type="text" disabled>
+			<input id='in4' type="text" disabled>
 		</div>
 	</div>
 	<div id="riddlediv">
-		riddler???
+	    <p>What is more useful when it is broken?</p>
 	</div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
@@ -62,7 +62,7 @@
 		in4.disabled = true;
 		var answer = in1.value + in2.value + in3.value + in4.value;
 		console.log(answer)
-		if (answer == '1993') {
+		if (answer == 'xxxx') {
 			console.log('correct answer')
 			riddlediv.style.display = "flex";
 			viddiv.style.display = "none";
@@ -85,10 +85,10 @@
 		socket.emit('press', {pressed: 1})
 		if (pressing && other_person_pressing) {
 			console.log('both pressing')
-		} else {
-			console.log('you are pressing')
 			btn.style.display = 'none'
 			viddiv.style.display = 'flex';
+		} else {
+			console.log('you are pressing')
 		}
 	})
 	butt.addEventListener('touchend', () => {

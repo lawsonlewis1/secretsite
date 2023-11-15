@@ -45,6 +45,7 @@ video {
     width: 300px;
     animation-name: zoom;
     animation-duration: 3s;
+    border-radius: 4px;
 }
 input {
     width: 1em;
