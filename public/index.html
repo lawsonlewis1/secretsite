@@ -38,7 +38,6 @@
 	};
 	const viddiv = document.getElementById('viddiv')
 	const riddlediv = document.getElementById('riddlediv')
-	const btn = document.getElementById('btn')
 	const in1 = document.getElementById('in1')
 	const in2 = document.getElementById('in2')
 	const in3 = document.getElementById('in3')
@@ -62,7 +61,7 @@
 		in4.disabled = true;
 		var answer = in1.value + in2.value + in3.value + in4.value;
 		console.log(answer)
-		if (answer == 'xxxx') {
+		if (answer == 'XXXX') {
 			console.log('correct answer')
 			riddlediv.style.display = "flex";
 			viddiv.style.display = "none";
@@ -79,8 +78,8 @@
 	var other_person_pressing = 0
 	var pressing = 0
 	var socket = io();
-	var butt = document.getElementById('butt')
-	butt.addEventListener('touchstart', () => {
+	var btn = document.getElementById('btn')
+	btn.addEventListener('touchstart', () => {
 		pressing = 1
 		socket.emit('press', {pressed: 1})
 		if (pressing && other_person_pressing) {
@@ -91,7 +90,7 @@
 			console.log('you are pressing')
 		}
 	})
-	butt.addEventListener('touchend', () => {
+	btn.addEventListener('touchend', () => {
 		pressing = 0
 		socket.emit('press', {pressed: 0})
 		console.log('you stopped pressing')
@@ -100,6 +99,8 @@
 		other_person_pressing = data['pressed']
 		if (pressing && other_person_pressing) {
 			console.log('both pressing')
+			btn.style.display = 'none'
+			viddiv.style.display = 'flex';
 		} else if (other_person_pressing) {
 			console.log('other person is pressing')
 		} else {
