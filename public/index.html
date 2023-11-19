@@ -5,17 +5,17 @@
 	<title>Secret Site</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+	<link type="text/css" href="/styles.css" rel="stylesheet">
 </head>
 
 <body>
 	<div>
 		<button id='butt'>
-			<img id='btn' src="{{ url_for('static', filename='button.png') }}" alt="Secret Button">
+			<img id='btn' src="/button.png" alt="Secret Button">
 		</button>
 	</div>
 	<div id='viddiv'>
-		<video src="{{ url_for('static', filename='vid.mp4') }}" muted autoplay loop></video>
+		<video src="/vid.mp4" muted autoplay loop></video>
 		<div>
 			<input id='in1' type="text">
 			<input id='in2' type="text" disabled>
