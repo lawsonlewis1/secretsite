@@ -11,7 +11,7 @@
 <body>
 	<div>
 		<button id='butt'>
-			<img id='btn' src="/button.png" alt="Secret Button">
+			<img id='btn' src="/button.png" alt="Secret Button" draggable="false">
 		</button>
 	</div>
 	<div id='viddiv'>
@@ -59,9 +59,9 @@
 	})
 	in4.addEventListener('input', () => {
 		in4.disabled = true;
-		var answer = in1.value + in2.value + in3.value + in4.value;
+		var answer = (in1.value + in2.value + in3.value + in4.value).toLowerCase();
 		console.log(answer)
-		if (answer == 'XXXX') {
+		if (answer == 'xxxx') {
 			console.log('correct answer')
 			riddlediv.style.display = "flex";
 			viddiv.style.display = "none";
@@ -80,6 +80,7 @@
 	var socket = io();
 	var btn = document.getElementById('btn')
 	btn.addEventListener('touchstart', () => {
+    navigator.vibrate([20, 100, 20, 1000, 20, 100, 20, 1000, 20, 100, 20, 1000, 20, 100, 20, 1000, 20, 100, 20, 1000, 20, 100, 20, 1000, 20, 100, 20, 1000, 20, 100, 20, 1000, 20, 100, 20, 1000, 20, 100, 20, 1000, 20, 100, 20, 1000, 20, 100, 20, 1000])
 		pressing = 1
 		socket.emit('press', {pressed: 1})
 		if (pressing && other_person_pressing) {
@@ -91,6 +92,7 @@
 		}
 	})
 	btn.addEventListener('touchend', () => {
+    navigator.vibrate(0);
 		pressing = 0
 		socket.emit('press', {pressed: 0})
 		console.log('you stopped pressing')
