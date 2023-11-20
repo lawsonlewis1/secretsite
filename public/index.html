@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <modal id="popup"><p>Happy Birthday!</p><button id="ok" type="button">OK</button> </modal>
 	<div>
 		<button id='butt'>
 			<img id='btn' src="/button.png" alt="Secret Button" draggable="false">
@@ -36,6 +37,11 @@
 		event.stopPropagation();
 		return false;
 	};
+  const ok = document.getElementById('ok')
+  const popup = document.getElementById('popup')
+  ok.addEventListener('click', () => {
+    popup.style.display = 'none'
+  })
 	const viddiv = document.getElementById('viddiv')
 	const riddlediv = document.getElementById('riddlediv')
 	const in1 = document.getElementById('in1')
