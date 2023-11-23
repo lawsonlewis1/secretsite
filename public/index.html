@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <modal id="popup"><p>Happy Birthday!</p><button id="ok" type="button">OK</button> </modal>
+    <modal id="popup"><p>Happy Birthday!</p><button id="ok" type="button" autofocus>OK</button> </modal>
 	<div>
 		<button id='butt'>
 			<img id='btn' src="/button.png" alt="Secret Button" draggable="false">
@@ -25,8 +25,18 @@
 		</div>
 	</div>
 	<div id="riddlediv">
-	    <p>What is more useful when it is broken?</p>
+      <p>I am more useful when broken.<br>Come and find me.</p>
+      <div>
+        <input id='in5' type="text">
+        <input id='in6' type="text" disabled>
+        <input id='in7' type="text" disabled>
+        <input id='in8' type="text" disabled>
+        <input id='in9' type="text" disabled>
+      </div>
 	</div>
+    <div id="final">
+      <p>Well done.<br>Proceed to the garage for the final challenge.</p>
+    </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
 	integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
@@ -44,10 +54,16 @@
   })
 	const viddiv = document.getElementById('viddiv')
 	const riddlediv = document.getElementById('riddlediv')
+	const final = document.getElementById('final')
 	const in1 = document.getElementById('in1')
 	const in2 = document.getElementById('in2')
 	const in3 = document.getElementById('in3')
 	const in4 = document.getElementById('in4')
+	const in5 = document.getElementById('in5')
+	const in6 = document.getElementById('in6')
+	const in7 = document.getElementById('in7')
+	const in8 = document.getElementById('in8')
+	const in9 = document.getElementById('in9')
 	in1.addEventListener('input', () => {
 		in1.disabled = true;
 		in2.disabled = false;
@@ -67,17 +83,54 @@
 		in4.disabled = true;
 		var answer = (in1.value + in2.value + in3.value + in4.value).toLowerCase();
 		console.log(answer)
+    in1.value = '';
+    in2.value = '';
+    in3.value = '';
+    in4.value = '';
 		if (answer == 'xxxx') {
 			console.log('correct answer')
 			riddlediv.style.display = "flex";
 			viddiv.style.display = "none";
 		} else {
-
-			in1.value = '';
-			in2.value = '';
-			in3.value = '';
-			in4.value = '';
 			in1.disabled = false;
+		}
+
+	})
+	in5.addEventListener('input', () => {
+		in5.disabled = true;
+		in6.disabled = false;
+		in6.focus();
+	})
+	in6.addEventListener('input', () => {
+		in6.disabled = true;
+		in7.disabled = false;
+		in7.focus();
+	})
+	in7.addEventListener('input', () => {
+		in7.disabled = true;
+		in8.disabled = false;
+		in8.focus();
+	})
+	in8.addEventListener('input', () => {
+		in8.disabled = true;
+		in9.disabled = false;
+		in9.focus();
+	})
+	in9.addEventListener('input', () => {
+		in8.disabled = true;
+		var answer = (in5.value + in6.value + in7.value + in8.value + in9.value).toLowerCase();
+		console.log(answer)
+    in5.value = '';
+    in6.value = '';
+    in7.value = '';
+    in8.value = '';
+    in9.value = '';
+		if (answer == 'twins') {
+			console.log('correct answer')
+			riddlediv.style.display = "none";
+      final.style.display = "flex";
+		} else {
+			in5.disabled = false;
 		}
 
 	})
@@ -91,10 +144,12 @@
 		socket.emit('press', {pressed: 1})
 		if (pressing && other_person_pressing) {
 			console.log('both pressing')
-			btn.style.display = 'none'
-			viddiv.style.display = 'flex';
+			// btn.style.display = 'none'
+			// viddiv.style.display = 'flex';
 		} else {
 			console.log('you are pressing')
+			btn.style.display = 'none'
+			viddiv.style.display = 'flex';
 		}
 	})
 	btn.addEventListener('touchend', () => {
