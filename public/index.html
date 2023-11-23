@@ -144,12 +144,10 @@
 		socket.emit('press', {pressed: 1})
 		if (pressing && other_person_pressing) {
 			console.log('both pressing')
-			// btn.style.display = 'none'
-			// viddiv.style.display = 'flex';
-		} else {
-			console.log('you are pressing')
 			btn.style.display = 'none'
 			viddiv.style.display = 'flex';
+		} else {
+			console.log('you are pressing')
 		}
 	})
 	btn.addEventListener('touchend', () => {
